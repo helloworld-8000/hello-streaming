@@ -9,11 +9,9 @@ const audio = "https://zstudioltd.my.id/songs/streaming2.mp3";
 
 const ffmpegCommand = [
   'ffmpeg',
-  '-stream_loop', '-1',
-  '-re',
+  '-stream_loop', '-1',  // Loop video
   '-i', video,
-  '-stream_loop', '-1',
-  '-re',
+  '-stream_loop', '-1',  // Loop audio
   '-i', audio,
   '-vcodec', 'libx264',
   '-pix_fmt', 'yuvj420p',
@@ -30,6 +28,8 @@ const ffmpegCommand = [
   '-video_track_timescale', '100',
   '-b:v', '1500k',
   '-f', 'flv',
+  '-map', '0:v:0',  // Map video stream from the first input (video file)
+  '-map', '1:a:0',  // Map audio stream from the second input (audio URL)
   `rtmp://a.rtmp.youtube.com/live2/${streamkey}`,
 ];
 
